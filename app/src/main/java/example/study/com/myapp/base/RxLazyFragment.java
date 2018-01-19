@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ import butterknife.Unbinder;
 public abstract class RxLazyFragment extends RxFragment {
 
     private View parentView;
-    private FragmentActivity activity;
+    private Activity activity;
 
     protected boolean isPrepared;
 
@@ -66,7 +65,7 @@ public abstract class RxLazyFragment extends RxFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.activity = (FragmentActivity) activity;
+        this.activity = activity;
     }
 
     @Override
@@ -76,7 +75,7 @@ public abstract class RxLazyFragment extends RxFragment {
     }
 
 
-    public FragmentActivity getSupportActivity() {
+    public Activity getSupportActivity() {
         return super.getActivity();
     }
 
