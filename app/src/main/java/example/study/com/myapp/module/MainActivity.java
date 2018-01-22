@@ -4,8 +4,10 @@ import android.os.Bundle;
 
 import example.study.com.myapp.R;
 import example.study.com.myapp.base.RxBaseActivity;
+import example.study.com.myapp.fragment.HomePage;
 
 public class MainActivity extends RxBaseActivity {
+    private HomePage mHomePage;
 
 
     @Override
@@ -15,11 +17,22 @@ public class MainActivity extends RxBaseActivity {
 
     @Override
     public void initViews(Bundle savedInstanceState) {
+        initFragment();
 
     }
 
     @Override
     public void initToolBar() {
+
+    }
+
+    private void initFragment() {
+        mHomePage = HomePage.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.container, mHomePage)
+                .show(mHomePage).commit();
+
 
     }
 }
