@@ -31,12 +31,11 @@ public class MainActivity extends RxBaseActivity {
 
     private void initFragment() {
         mHomePage = HomePage.newInstance();
-        Log.d(TAG, "initFragment: +"+"222");
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.container, mHomePage)
                 .show(mHomePage).commit();
 
-
+        Log.d(TAG, "initFragment: +"+"222");
     }
 }

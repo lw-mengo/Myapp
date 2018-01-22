@@ -52,19 +52,21 @@ public class HomePage extends RxLazyFragment {
 
     @Override
     public void finishCreateView(Bundle state) {
-        isPrepared = true;
-        lazeLoad();
 
+        isPrepared = true;
+        lazyLoad();
+        Log.d(TAG, "finishCreateView: "+"finishcreateView");
     }
 
     @Override
-    protected void lazeLoad() {
-        if (!isPrepared || !isVisible) {
-            return;
-        }
+    protected void lazyLoad() {
+//        if (!isPrepared || !isVisible) {
+//            return;
+//        }
         initRefreshLayout();
         initRecycleView();
         isPrepared = false;
+        Log.d(TAG, "lazyLoad: "+"lazyload");
     }
 
     @Override
@@ -87,6 +89,7 @@ public class HomePage extends RxLazyFragment {
         mRecycleView.setLayoutManager(mLayoutManager);
         mRecycleView.setAdapter(mSectionedAdapter);
         setRecycleNoScroll();
+        Log.d(TAG, "initRecycleView: ");
     }
 
     @Override
@@ -98,9 +101,11 @@ public class HomePage extends RxLazyFragment {
             loadData();
         });
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            Log.d(TAG, "loadData:+ "+"error");
             clearData();
             loadData();
         });
+        Log.d(TAG, "initRefreshLayout: ");
     }
 
     @Override
@@ -114,7 +119,7 @@ public class HomePage extends RxLazyFragment {
                     imageUrlBeans.addAll(imageInfo.getImageUrl());
                     finishTask();
                 }, throwable -> initEmptyView());
-        Log.d(TAG, "loadData:+ "+"error");
+        Log.d(TAG, "loadData: ");
     }
 
     @Override

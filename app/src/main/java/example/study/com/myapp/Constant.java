@@ -7,5 +7,5 @@ package example.study.com.myapp;
 
 public class Constant {
 
-    public static final String BASE_URL = "http:/10.0.0.2:8080/api/";
+    public static final String BASE_URL = "http:/192.168.31.178:8080/api/";
 }

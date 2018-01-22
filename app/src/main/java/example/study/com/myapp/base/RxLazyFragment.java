@@ -99,10 +99,10 @@ public abstract class RxLazyFragment extends RxFragment {
     }
 
     protected void onVisible() {
-        lazeLoad();
+        lazyLoad();
     }
 
-    protected void lazeLoad() {
+    protected void lazyLoad() {
     }
 
     protected void onInVisible() {
