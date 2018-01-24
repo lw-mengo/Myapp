@@ -21,11 +21,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.MainActivity"
+        <activity
+            android:name=".module.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/MainActivityColor"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
-</application>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity android:name=".fragment.BangumiInfo"/>
+    </application>
 
-    </manifest>
+</manifest>

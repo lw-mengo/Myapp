@@ -1,5 +1,6 @@
 package example.study.com.myapp.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -53,7 +54,10 @@ public class HomeBangumiSection extends StatelessSection {
                 .into(itemViewHolder.mImage);
 
         itemViewHolder.mTitle.setText(imageUrlBean.getTitle());
-        //Todo click event
+        itemViewHolder.mCardView.setOnClickListener(view -> BangumiInfo.launch((Activity) mContext,imageUrlBean.getImgUrl())
+
+        );
+
     }
 
     @Override
