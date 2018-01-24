@@ -4,6 +4,8 @@ import example.study.com.myapp.bean.ImageInfo;
 import example.study.com.myapp.bean.VideoInfo;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by lw_mengo on 2018/1/22 0022.
@@ -11,8 +13,8 @@ import retrofit2.http.GET;
  */
 
 public interface BangumiService {
-    @GET("getJsonList?cid=0")
-    Observable<VideoInfo> getBangumiInfo();
+    @GET("getJsonList")
+    Observable<VideoInfo> getBangumiInfo(@Query("cid") int id);
 
     @GET("getImageUrl")
     Observable<ImageInfo> getImageInfo();

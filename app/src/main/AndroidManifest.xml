@@ -27,7 +27,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/MainActivityColor"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-        <activity android:name=".fragment.BangumiInfo"/>
+        <activity android:name=".fragment.BangumiInfo" />
+        <activity android:name=".module.VideoPlayerActivity"></activity>
     </application>
 
 </manifest>

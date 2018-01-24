@@ -54,8 +54,7 @@ public class HomeBangumiSection extends StatelessSection {
                 .into(itemViewHolder.mImage);
 
         itemViewHolder.mTitle.setText(imageUrlBean.getTitle());
-        itemViewHolder.mCardView.setOnClickListener(view -> BangumiInfo.launch((Activity) mContext,imageUrlBean.getImgUrl())
-
+        itemViewHolder.mCardView.setOnClickListener(view -> BangumiInfo.launch((Activity) mContext,imageUrlBean.getImgUrl(),position)
         );
 
     }

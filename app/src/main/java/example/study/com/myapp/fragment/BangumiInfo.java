@@ -21,6 +21,7 @@ import example.study.com.myapp.adapter.AbsRecyclerViewAdapter;
 import example.study.com.myapp.adapter.BangumiEpisodeAdapter;
 import example.study.com.myapp.base.RxBaseActivity;
 import example.study.com.myapp.bean.VideoInfo;
+import example.study.com.myapp.module.VideoPlayerActivity;
 import example.study.com.myapp.network.RetrofitHelper;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -31,7 +32,7 @@ public class BangumiInfo extends RxBaseActivity{
 
     @BindView(R.id.nested_scroll_view)
     NestedScrollView mNestedScrollView;
-    @BindView(R.id.bangumi_bg)
+    @BindView(R.id.bangumi_pic)
     ImageView bangumiBackgroundImage;
     @BindView(R.id.bangumi_title)
     TextView bangumiTitle;
@@ -41,9 +42,9 @@ public class BangumiInfo extends RxBaseActivity{
     RecyclerView bangumiEpisode;
 
     private List<VideoInfo.VideoUrlBean> videoUrlBeans =new ArrayList<>();
-    private VideoInfo videoInfo;
 
     private String imgUrl;
+    private int id;
 
     @Override
     public int getLayoutId() {
@@ -55,6 +56,7 @@ public class BangumiInfo extends RxBaseActivity{
         Intent intent = getIntent();
         if (intent!=null){
             imgUrl = intent.getStringExtra("imageurl");
+            id = intent.getIntExtra("id",0);
         }
         loadData();
 
@@ -65,8 +67,6 @@ public class BangumiInfo extends RxBaseActivity{
         Glide.with(this)
                 .load(imgUrl)
                 .into(bangumiBackgroundImage);
-        bangumiTitle.setText(videoInfo.getTitle());
-        bangumiContent.setText(videoInfo.getContent());
         initSelectionRecycler();
 
     }
@@ -78,19 +78,20 @@ public class BangumiInfo extends RxBaseActivity{
 
     @Override
     public void loadData() {
-        RetrofitHelper.getInfo().getBangumiInfo()
+        RetrofitHelper.getInfo().getBangumiInfo(id)
                 .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(videoInfo1 -> {
-                    videoUrlBeans.addAll(videoInfo1.getVideoUrl());
+                .subscribe(videoInfo -> {
+                    videoUrlBeans.addAll(videoInfo.getVideoUrl());
+                    bangumiTitle.setText(videoInfo.getTitle());
+                    bangumiContent.setText(videoInfo.getContent());
                     finishTask();
                 },throwable -> Log.d(TAG, "loadData: "+throwable.getMessage()));
 
     }
 
     private void initSelectionRecycler(){
-        List<VideoInfo.VideoUrlBean> videoUrlBeans = videoInfo.getVideoUrl();
         bangumiEpisode.setHasFixedSize(false);
         bangumiEpisode.setNestedScrollingEnabled(false);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
@@ -104,15 +105,17 @@ public class BangumiInfo extends RxBaseActivity{
             @Override
             public void onItemClick(int position, AbsRecyclerViewAdapter.ClickableViewHolder holder) {
                 bangumiEpisodeAdapter.notifyItemForeground(holder.getLayoutPosition());
+                VideoPlayerActivity.launch(BangumiInfo.this,videoUrlBeans.get(position).getVideoLink(),videoUrlBeans.get(position).getEpisode());
 
             }
         });
     }
 
-    public static void launch(Activity activity,String url){
+    public static void launch(Activity activity,String url,int id){
         Intent intent = new Intent(activity,BangumiInfo.class);
         Bundle bundle = new Bundle();
         bundle.putString("imageurl",url);
+        bundle.putInt("id",id);
         intent.putExtras(bundle);
         activity.startActivity(intent);
     }

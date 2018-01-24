@@ -2,6 +2,7 @@ package example.study.com.myapp.adapter;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import example.study.com.myapp.bean.VideoInfo;
  */
 
 public class BangumiEpisodeAdapter extends AbsRecyclerViewAdapter {
+
+    private static final String TAG = "info";
 
     private int layoutPosition = 0;
     private List<VideoInfo.VideoUrlBean> videoUrlBeans;
@@ -38,6 +41,8 @@ public class BangumiEpisodeAdapter extends AbsRecyclerViewAdapter {
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             VideoInfo.VideoUrlBean videoInfo = videoUrlBeans.get(position);
+            Log.d(TAG, "onBindViewHolder: "+position);
+            Log.d(TAG, "onBindViewHolder: "+videoInfo.getEpisode());
             itemViewHolder.mIndex.setText(videoInfo.getEpisode());
             itemViewHolder.mTitle.setText(videoInfo.getVideoLink());
 
